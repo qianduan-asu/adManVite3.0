@@ -13,31 +13,26 @@ import Layout from '@/layout/index.vue'
 import MenuBox from '@/components/menu/index.vue'
 /** 引入带有系统自定义name的组件，方便keep-alive实现 */
 import { createNameComponent } from './createNode'
-
 /** 引入需要权限的Modules */
 import Dashboard from './modules/dashboard'
-import Document from './modules/document'
-import Pages from './modules/pages'
-import Menu from './modules/menu'
-import Component from './modules/component'
-import Directive from './modules/directive'
-import SystemManage from './modules/systemManage'
-import Chart from './modules/chart'
-import Print from './modules/print'
-import Community from './modules/community'
+import police from './modules/police'
+import opearation from './modules/opearation'
+import statistics from './modules/statistics'
+import finance from './modules/finance'
+import service from './modules/service'
+import workOrder from './modules/workOrder'
+import settings from './modules/settings'
 
 /** 登录后需要动态加入的本地路由 */
 const asyncRoutes: Route[] = [
   ...Dashboard,
-  ...Document,
-  ...Component,
-  ...Pages,
-  ...Menu,
-  ...Directive,
-  ...Chart,
-  ...SystemManage,
-  ...Print,
-  ...Community,
+  ...police,
+  ...opearation,
+  ...statistics,
+  ...finance,
+  ...service,
+  ...workOrder,
+  ...settings,
 ]
 
 /** 
@@ -57,6 +52,7 @@ function addRoutes() {
  * @des 登录了之后会执行这个方法，实现动态路由的功能
  */
 export function getAuthRoutes() {
+  console.log(store.state.user.token);
   // 判断token是否存在，存在则调用添加路由的方法
   if (store.state.user.token) {
     addRoutes()

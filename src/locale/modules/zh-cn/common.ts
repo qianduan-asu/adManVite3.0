@@ -9,6 +9,10 @@ export default {
     delTip: '确定删除选中的数据吗？',
     handle: '操作',
     exportExcel:'导出Excel',
-    exportExcelTip:'请输入导出文件名'
+    exportExcelTip:'请输入导出文件名',
+    startTime:'开始时间',
+    endTime:'结束时间',
+    toTime:'至'
+
   },
 }

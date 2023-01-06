@@ -4,8 +4,6 @@ import qs from 'qs'
 import { ElMessage,ElLoading } from 'element-plus'
 import { QuestionFilled } from '@element-plus/icons'
 const baseURL: any = import.meta.env.VITE_BASE_URL
-
-
 const user = {
   Token: window.localStorage.Token,
 }
@@ -15,7 +13,6 @@ const service: AxiosInstance = axios.create({
   headers: {
     Authorization: 'Bearer ' + window.localStorage.Token,
 }
- 
 })
 let loading:any;
 //正在请求的数量
@@ -42,31 +39,24 @@ service.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // JWT鉴权处理
     // showLoading()
-    config.headers['token'] = localStorage.getItem('token') || '';
+    config.headers['Token'] = localStorage.getItem('Token') || '';
   //某些接口去除token(params里面noToken值为true的时候,传递给后端的token值为空)
   if (config.params && config.params.noToken) {
     config.headers['token'] = '';
+  }else{
+
   }
- 
- 
-    
-    // config.data =qs.stringify(
-    //   {
-    //     ...user,
-    //     ...config.data
-    //   }
-    // ) 
-    // console.log(config.data);
-    
     return config
   },
   (error: AxiosError) => {
     console.log(error) // for debug
+    
     return Promise.reject(error)
   }
 )
 service.defaults.transformRequest = (data) => {
-  return qs.stringify(data)
+  const reqData =  qs.stringify({...user,...data})
+  return reqData
 }
 
 service.interceptors.response.use(
@@ -91,7 +81,7 @@ service.interceptors.response.use(
       message: message,
       duration: 5 * 1000
   }) 
-    return Promise.reject(error)
+    return Promise.reject(error),user
   }
 )
 

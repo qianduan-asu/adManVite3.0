@@ -13,6 +13,7 @@ declare module 'vue' {
     ElMain: typeof import('element-plus/es')['ElMain']
     Layer: typeof import('./src/components/layer/index.vue')['default']
     Menu: typeof import('./src/components/menu/index.vue')['default']
+    Opearation: typeof import('./src/components/Opearation/index.vue')['default']
     Table: typeof import('./src/components/table/index.vue')['default']
     Tinymce: typeof import('./src/components/tinymce/index.vue')['default']
     Tip: typeof import('./src/components/cropper/tip.vue')['default']

@@ -1,5 +1,27 @@
 export default {
   menu: {
+    opearation: {
+      name: 'operationMan',
+      opearation_1: {
+        name: 'terminalMan',
+        opearation_1_1: 'terminalInformation',
+        opearation_1_2: 'Device information',
+        opearation_1_3: 'Packet information',
+        opearation_1_4: 'Equipment upgrade',
+        opearation_1_5: 'Authorization Man',
+        opearation_1_6: 'Joint defense Man'
+      },
+      opearation_2: {
+        name: 'value-added services',
+        opearation_2_1: 'terminalInformation',
+        opearation_2_2: 'Device information',
+        opearation_2_3: 'Packet information',
+        opearation_2_4: 'Equipment upgrade',
+        opearation_2_5: 'Authorization Man',
+        opearation_2_6: 'Joint defense Man'
+      },
+
+    },
     dashboard: {
       name: 'dashboard',
       index: 'index'
@@ -21,7 +43,7 @@ export default {
       map: 'map',
       cutPhoto: 'cutPhoto',
       rightMenu: 'rightMenu',
-      exportExcel:'exportExcel'
+      exportExcel: 'exportExcel'
     },
     page: {
       name: 'page',
@@ -41,16 +63,6 @@ export default {
       menu_1_2: 'menu-1-2',
       menu_2: 'menu-2',
       menu_3: 'menu-3'
-    },
-    directive: {
-      name: 'directive',
-      dragable: 'v-dragable',
-      copy: 'v-copy',
-      waterMarker: 'v-waterMarker',
-      longpress: 'v-longpress',
-      debounce: 'v-debounce',
-      scroll: 'v-infinite-scroll',
-      clickOutside: 'v-click-outside',
     },
     echarts: {
       name: 'echarts',

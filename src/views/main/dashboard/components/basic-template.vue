@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card">
+  <!-- <el-card class="box-card">
     <template #header>
       <div class="card-header">
         <span>基础模板</span>
@@ -28,7 +28,7 @@
           <el-link type="primary" href="http://vue-admin-box-template.51weblove.com/js-i18n" target="_blank">demo</el-link>
         </div>
       </div>
-  </el-card>
+  </el-card> -->
 </template>
 
 <script lang="ts">

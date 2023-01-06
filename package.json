@@ -9,7 +9,9 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons": "^0.0.11",
+    "@fawmi/vue-google-maps": "^0.9.72",
     "@kangc/v-md-editor": "^2.3.5",
     "@vueuse/core": "^8.0.0",
     "axios": "^0.26.1",
@@ -17,6 +19,7 @@
     "cropperjs": "^1.5.12",
     "echarts": "^5.3.1",
     "element-plus": "2.1.4",
+    "mapvgl": "^1.0.0-beta.154",
     "mockjs": "^1.1.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",

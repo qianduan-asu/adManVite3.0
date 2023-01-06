@@ -5,7 +5,7 @@ export function getData(data: object) {
   return request({
     url: '/work/list',
     method: 'post',
-    baseURL: '/mock',
+    baseURL: '',
     data
   })
 }

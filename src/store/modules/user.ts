@@ -33,46 +33,59 @@ const actions = {
   login({ commit, dispatch }: ActionContext<userState, userState>, params: any) {
     return new Promise((resolve, reject) => {
       loginApi(params)
-      .then(res => {
-        window.localStorage.Token = res.Data.Token; // 角色token
-        window.localStorage.urse = res.Data.RoleId; // 角色ID
-        window.localStorage.isAdmin = res.Data.IsAdmin == true?1:0;//是否为运营平台
-        commit('tokenChange', res.Data.Token)
-        dispatch('getInfo', { Token: res.Data.Token,TokenType:0})
-        .then(infoRes => {
-          resolve(res.Data.Token)
+        .then(res => {
+          window.localStorage.Token = res.Data.Token; // 角色token
+          window.localStorage.urse = res.Data.RoleId; // 角色ID
+          window.localStorage.isAdmin = res.Data.IsAdmin == true ? 1 : 0;//是否为运营平台
+          commit('tokenChange', res.Data.Token)
+          dispatch('getInfo', { Token: res.Data.Token, TokenType: 0 })
+            .then(infoRes => {
+              resolve(res.Data.Token)
+            })
+        }).catch(err => {
+          reject(err)
         })
-      }).catch(err => {
-        reject(err)
-      })
     })
   },
   // get user info after user logined
   getInfo({ commit }: ActionContext<userState, userState>, params: any) {
     return new Promise((resolve, reject) => {
       getInfoApi(params)
-      .then(res => {
-        commit('infoChange', res.data.info)
-        resolve(res.data.info)
-      })
+        .then(res => {
+          commit('infoChange', {
+            Address: res.Data.Address,
+            CompanyName: res.Data.CompanyName,
+            EvaluationNumber: res.Data.EvaluationNumber,
+            Phone: res.Data.Phone,
+            Photo: res.Data.Photo,
+            UserName: res.Data.UserName,
+          })
+          resolve({
+            Address: res.Data.Address,
+            CompanyName: res.Data.CompanyName,
+            EvaluationNumber: res.Data.EvaluationNumber,
+            Phone: res.Data.Phone,
+            Photo: res.Data.Photo,
+            UserName: res.Data.UserName,
+          })
+        })
     })
   },
-
   // login out the system after user click the loginOut button
   loginOut({ commit }: ActionContext<userState, userState>) {
     loginOutApi()
-    .then(res => {
+      .then(res => {
 
-    })
-    .catch(error => {
+      })
+      .catch(error => {
 
-    })
-    .finally(() => {
-      localStorage.removeItem('tabs')
-      localStorage.removeItem('vuex')
-      sessionStorage.removeItem('vuex')
-      location.reload()
-    })
+      })
+      .finally(() => {
+        localStorage.removeItem('tabs')
+        localStorage.removeItem('vuex')
+        sessionStorage.removeItem('vuex')
+        location.reload()
+      })
   }
 }
 

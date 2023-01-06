@@ -12,6 +12,7 @@ import router from './router'
 import { getAuthRoutes } from './router/permission'
 import i18n from './locale'
 import './index.css'
+import VueGoogleMaps from '@fawmi/vue-google-maps'
 if (import.meta.env.MODE !== 'development') { // 非开发环境调用百度统计
   baidu()
 }
@@ -20,6 +21,12 @@ if (import.meta.env.MODE !== 'development') { // 非开发环境调用百度统�
 getAuthRoutes()
 
 const app = createApp(App)
+app.use(VueGoogleMaps, {
+  load: {
+      key: 'AIzaSyB4fm1iFUO4uId8JvD1encvy6B1sJapjQk',
+      // language: 'de',
+  },
+})
 app.use(ElementPlus, { size: store.state.app.elementSize })
 app.use(store)
 app.use(router)

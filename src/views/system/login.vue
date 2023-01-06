@@ -76,8 +76,8 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
     const form = reactive({
-      name: 'admin',
-      password: '123456',
+      name: '17520530203',
+      password: '1234567',
       loading: false
     })
     const timeStamp = Math.round(new Date() / 1000)
@@ -112,16 +112,14 @@ export default defineComponent({
     const submit = () => {
       checkForm()
       .then(() => {
-        form.loading = true
+        // form.loading = true
         let params = {
           UserName: form.name,
           CipherText : pswmd5(),
           TimeSpan:timeStamp,
         }
-        
         store.dispatch('user/login', params)
         .then(async () => {
-          console.log('scu');
           ElMessage({
             message: '登录成功',
             type: 'success',

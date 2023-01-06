@@ -21,9 +21,8 @@ export function getInfoApi(data: object) {
 /** 退出登录Api */
 export function loginOutApi() {
   return request({
-    url: '/user/out',
+    url: 'pc/user/logout',
     method: 'post',
-    baseURL: '/mock'
   })
 }
 
@@ -32,7 +31,7 @@ export function passwordChange(data: object) {
   return request({
     url: '/user/passwordChange',
     method: 'post',
-    baseURL: '/mock',
+    baseURL: '',
     data
   })
 }
@@ -42,6 +41,6 @@ export function getMenuApi() {
   return request({
     url: '/menu/list',
     method: 'post',
-    baseURL: '/mock'
+    baseURL: ''
   })
 }

@@ -39,17 +39,7 @@ export default ({ command,mode }: ConfigEnv): UserConfigExport => {
     },
     plugins: [
       vue(),
-      viteMockServe({
-        mockPath: 'mock',
-        localEnabled: command === 'serve',
-        prodEnabled: command !== 'serve' && prodMock,
-        watchFiles: true,
-        injectCode: `
-          import { setupProdMockServer } from '../mockProdServer';
-          setupProdMockServer();
-        `,
-        logger: true,
-      }),
+    
     ],
     css: {
       postcss: {

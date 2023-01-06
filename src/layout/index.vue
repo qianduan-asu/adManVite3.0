@@ -1,4 +1,5 @@
-<template>
+<template> 
+<!-- 整个页面的UI -->
   <el-container style="height: 100vh">
     <div
       class="mask"

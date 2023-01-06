@@ -9,6 +9,9 @@ export default {
     delTip: 'Are you sure delete the selection data ?',
     handle: 'handle',
     exportExcel:'export excel',
-    exportExcelTip:'please input file name'
+    exportExcelTip:'please input file name',
+    startTime:'Start date',
+    endTime:'End date',
+    toTime:'To'
   },
 }
