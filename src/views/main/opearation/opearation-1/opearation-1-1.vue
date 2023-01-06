@@ -18,6 +18,14 @@
             >
           </template>
         </el-popconfirm>
+
+        <!-- <el-button
+          type="warning"
+          :icon="Upload"
+          class="export-excel-btn"
+          @click="handleEntryTer"
+          >{{ $t('message.common.entryTer') }}</el-button
+        > -->
       </div>
       <div class="layout-container-form-search">
         <el-date-picker
@@ -43,6 +51,15 @@
           @click="getTableData(true)"
           >{{ $t("message.common.search") }}</el-button
         >
+        <el-button
+          type="primary"
+          :icon="Download"
+          class="export-excel-btn"
+       
+          >
+             <!-- @click="handleExportTer" -->
+          {{ $t("message.common.exportTer") }}</el-button
+        >
       </div>
     </div>
     <div class="layout-container-table">
@@ -55,15 +72,31 @@
         :data="tableData"
         @getTableData="getTableData"
         @selection-change="handleSelectionChange"
-        empty-text='暂无数据'
+        empty-text="暂无数据"
       >
-        <el-table-column prop="TerminalId" label="终端编号" align="center" />
-        <el-table-column prop="TerminalName" label="终端名称" align="center" />
-        <el-table-column prop="GroupName" label="所属分组" align="center" />
+        <el-table-column
+          prop="TerminalId"
+          label="终端编号"
+          width="120"
+          align="center"
+        />
+        <el-table-column
+          prop="TerminalName"
+          label="终端名称"
+          width="120"
+          align="center"
+        />
+        <el-table-column
+          prop="GroupName"
+          label="所属分组"
+          width="120"
+          align="center"
+        />
         <el-table-column
           prop="TerminalTypeExplainName"
           label="终端类型"
           align="center"
+          width="120"
         >
           <template #default="scope">
             <p v-if="scope.row.TerminalTypeExplainName">
@@ -72,20 +105,54 @@
             <p v-else>--</p>
           </template>
         </el-table-column>
-        <el-table-column prop="ContractOne" label="联系人" align="center" />
+        <el-table-column
+          prop="ContractOne"
+          label="联系人"
+          width="120"
+          align="center"
+        />
         <el-table-column
           prop="ContractPhoneOne"
           label="联系电话"
+          width="120"
           align="center"
         />
-        <el-table-column prop="Address" label="地址" width="300" align="center" show-overflow-tooltip/>
+        <el-table-column
+          prop="Address"
+          label="地址"
+          width="310"
+          align="center"
+          show-overflow-tooltip
+        />
+        <el-table-column
+          prop="ServiceProvider"
+          label="服务商"
+          width="120"
+          align="center"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column
+          prop="ServiceEndTime"
+          label="服务总到期时间"
+          width="160"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="CreateTime"
+          label="创建时间"
+          width="160"
+          align="center"
+        ></el-table-column>
         <el-table-column
           :label="$t('message.common.handle')"
           align="center"
           fixed="right"
-          width="200"
+          :width="size == 'large' ? '270px' : '230px'"
         >
           <template #default="scope">
+            <el-button type="primary">{{
+              $t("message.common.patrol")
+            }}</el-button>
             <el-button @click="handleEdit(scope.row)">{{
               $t("message.common.update")
             }}</el-button>
@@ -108,7 +175,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, watch } from "vue";
+import { defineComponent, ref, reactive, computed, created, watch } from "vue";
+import { useStore } from "vuex";
 import Table from "@/components/table/index.vue";
 import { Page } from "@/components/table/type";
 import { getData, del } from "@/api/table";
@@ -116,8 +184,10 @@ import { getData, del } from "@/api/table";
 import { ElMessage } from "element-plus";
 import type { LayerInterface } from "@/components/layer/index.vue";
 // import { selectData, radioData } from './enum'
-import { Plus, Search, Delete } from "@element-plus/icons";
+import { Plus, Upload, Download, Search, Delete } from "@element-plus/icons";
 import { log } from "node:console";
+import { useI18n } from "vue-i18n";
+
 export default defineComponent({
   name: "crudTable",
   components: {
@@ -126,6 +196,10 @@ export default defineComponent({
   },
   setup() {
     // 存储搜索用的数据
+    const store = useStore();
+    const { locale } = useI18n();
+
+    const size = computed(() => store.state.app.elementSize);
     const KeyWord = reactive({
       input: "",
     });
@@ -190,35 +264,7 @@ export default defineComponent({
     const handleSelectionChange = (val: []) => {
       chooseData.value = val;
     };
-    const shortcuts = [
-      {
-        text: "Last week",
-        value: () => {
-          const end = new Date();
-          const start = new Date();
-          start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-          return [start, end];
-        },
-      },
-      {
-        text: "Last month",
-        value: () => {
-          const end = new Date();
-          const start = new Date();
-          start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-          return [start, end];
-        },
-      },
-      {
-        text: "Last 3 months",
-        value: () => {
-          const end = new Date();
-          const start = new Date();
-          start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-          return [start, end];
-        },
-      },
-    ];
+
     // 获取表格数据
     // params <init> Boolean ，默认为false，用于判断是否需要初始化分页
     const getTableData = (init: boolean) => {
@@ -297,6 +343,10 @@ export default defineComponent({
       Plus,
       Search,
       Delete,
+      Download,
+      Upload,
+      size,
+      locale,
       KeyWord,
       datetimes,
       tableData,
@@ -306,7 +356,6 @@ export default defineComponent({
       layer,
       StartTime,
       EndTime,
-      shortcuts,
       handleSelectionChange,
       handleAdd,
       handleEdit,
@@ -316,6 +365,75 @@ export default defineComponent({
       timeFn1,
     };
   },
+  data() {
+    return {
+      shortcuts: [],
+    };
+  },
+  created() {
+     this.shortcuts = [
+        {
+          text: this.$t("message.common.lastweek"),
+          value: () => {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            return [start, end];
+          },
+        },
+        {
+          text: this.$t("message.common.lastmonths"),
+          value: () => {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+            return [start, end];
+          },
+        },
+        {
+          text: this.$t("message.common.last3months"),
+          value: () => {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+            return [start, end];
+          },
+        },
+      ];
+  },
+  // watch: {
+  //   locale(val) {
+  //     // this.shortcuts = [
+  //     //   {
+  //     //     text: this.$t("message.common.lastweek"),
+  //     //     value: () => {
+  //     //       const end = new Date();
+  //     //       const start = new Date();
+  //     //       start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+  //     //       return [start, end];
+  //     //     },
+  //     //   },
+  //     //   {
+  //     //     text: this.$t("message.common.lastmonths"),
+  //     //     value: () => {
+  //     //       const end = new Date();
+  //     //       const start = new Date();
+  //     //       start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+  //     //       return [start, end];
+  //     //     },
+  //     //   },
+  //     //   {
+  //     //     text: this.$t("message.common.last3months"),
+  //     //     value: () => {
+  //     //       const end = new Date();
+  //     //       const start = new Date();
+  //     //       start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+  //     //       return [start, end];
+  //     //     },
+  //     //   },
+  //     // ];
+  //   },
+  // },
 });
 </script>
 
