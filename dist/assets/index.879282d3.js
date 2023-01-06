@@ -1,1 +1,0 @@
-import{_ as o,d as t,r as _,o as n,z as r}from"./index.112cb797.js";const s=t({setup(){}});function a(c,p,d,i,u,f){const e=_("router-view");return n(),r(e)}var l=o(s,[["render",a],["__scopeId","data-v-2728f06b"]]);export{l as default};
