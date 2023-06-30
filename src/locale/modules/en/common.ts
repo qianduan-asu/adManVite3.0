@@ -1,0 +1,22 @@
+export default {
+  common: {
+    search: 'search',
+    searchTip: 'please input keyword',
+    add: 'add',
+    update: 'update',
+    patrol: 'patrol',
+    del: 'delete',
+    delBat: 'delete choose',
+    delTip: 'Are you sure delete the selection data ?',
+    handle: 'handle',
+    exportTer:'export Terminal',
+    entryTer:'entry Terminal',
+    exportExcelTip:'please input file name',
+    startTime:'Start date',
+    endTime:'End date',
+    toTime:'To',
+    lastweek:'Last week',
+    lastmonths:"Last month",
+    last3months:'Last 3 months',
+  },
+}

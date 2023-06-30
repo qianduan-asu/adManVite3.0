@@ -1,0 +1,22 @@
+export default {
+  common: {
+    search: '搜索',
+    searchTip: '请输入关键词进行检索',
+    add: '新增',
+    update: '编辑',
+    patrol: '巡逻',
+    del: '删除',
+    delBat: '批量删除',
+    delTip: '确定删除选中的数据吗？',
+    handle: '操作',
+    exportTer:'导出终端',
+    entryTer:'导入终端',
+    exportExcelTip:'请输入导出文件名',
+    startTime:'开始时间',
+    endTime:'结束时间',
+    toTime:'至',
+    lastweek:'最近一周',
+    lastmonths:"最近一个月",
+    last3months:'最近三个月',
+  },
+}
