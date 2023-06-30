@@ -38,7 +38,12 @@ const route: Route[] = [
             component: createNameComponent(() => import('@/views/main/opearation/opearation-1/opearation-1-5.vue')),
             meta: { title: 'message.menu.opearation.opearation_1.opearation_1_5' },
           },
-
+          {
+            path: 'addTerminal',
+            component: createNameComponent(() => import('@/views/main/opearation/opearation-1/addTerminal.vue')),
+            meta: { title: 'message.menu.opearation.opearation_1.addTerminal' },
+            hideMenu:true,
+          },
         ]
       },
       {

@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, onActivated, onMounted } from 'vue'
+import { defineComponent, reactive, ref, onActivated } from 'vue'
 import { Page } from '@/components/table/type'
 export default defineComponent({
   props: {

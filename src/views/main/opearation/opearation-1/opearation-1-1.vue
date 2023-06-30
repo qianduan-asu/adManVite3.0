@@ -48,16 +48,11 @@
           type="primary"
           :icon="Search"
           class="search-btn"
-          @click="getTableData(true)"
+          v-debounce="getTableData(true)"
           >{{ $t("message.common.search") }}</el-button
         >
-        <el-button
-          type="primary"
-          :icon="Download"
-          class="export-excel-btn"
-       
-          >
-             <!-- @click="handleExportTer" -->
+        <el-button type="primary" :icon="Download" class="export-excel-btn">
+          <!-- @click="handleExportTer" -->
           {{ $t("message.common.exportTer") }}</el-button
         >
       </div>
@@ -187,6 +182,7 @@ import type { LayerInterface } from "@/components/layer/index.vue";
 import { Plus, Upload, Download, Search, Delete } from "@element-plus/icons";
 import { log } from "node:console";
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "crudTable",
@@ -198,6 +194,7 @@ export default defineComponent({
     // 存储搜索用的数据
     const store = useStore();
     const { locale } = useI18n();
+    const router = useRouter();
 
     const size = computed(() => store.state.app.elementSize);
     const KeyWord = reactive({
@@ -264,10 +261,12 @@ export default defineComponent({
     const handleSelectionChange = (val: []) => {
       chooseData.value = val;
     };
-
-    // 获取表格数据
-    // params <init> Boolean ，默认为false，用于判断是否需要初始化分页
-    const getTableData = (init: boolean) => {
+    const list = (init: boolean) => {
+      ElMessage({
+        type: "success",
+        message: "正在拉取数据",
+        duration: 1000,
+      });
       loading.value = true;
       if (init) {
         page.index = 1;
@@ -283,20 +282,6 @@ export default defineComponent({
       getData(params)
         .then((res) => {
           let data = res.Data;
-          // if (Array.isArray(data)) {
-          //   data.forEach((d) => {
-          //     const select = selectData.find(
-          //       (select) => select.value === d.choose
-          //     );
-          //     select
-          //       ? (d.chooseName = select.label)
-          //       : (d.chooseName = d.choose);
-          //     const radio = radioData.find(
-          //       (select) => select.value === d.radio
-          //     );
-          //     radio ? (d.radioName = radio.label) : d.radio;
-          //   });
-          // }
           tableData.value = res.Data;
           page.total = Number(res.Sum);
         })
@@ -308,6 +293,14 @@ export default defineComponent({
         .finally(() => {
           loading.value = false;
         });
+    };
+    list(true);
+    // 获取表格数据
+    // params <init> Boolean ，默认为false，用于判断是否需要初始化分页
+    const getTableData = (init: boolean) => {
+      return function () {
+        list(init);
+      };
     };
     // 删除功能
     const handleDel = (data: object[]) => {
@@ -328,9 +321,10 @@ export default defineComponent({
     };
     // 新增弹窗功能
     const handleAdd = () => {
-      layer.title = "新增数据";
-      layer.show = true;
-      delete layer.row;
+      router.push("addTerminal");
+      // layer.title = "新增数据";
+      // layer.show = true;
+      // delete layer.row;
     };
     // 编辑弹窗功能
     const handleEdit = (row: object) => {
@@ -338,7 +332,6 @@ export default defineComponent({
       layer.row = row;
       layer.show = true;
     };
-    getTableData(true);
     return {
       Plus,
       Search,
@@ -371,35 +364,35 @@ export default defineComponent({
     };
   },
   created() {
-     this.shortcuts = [
-        {
-          text: this.$t("message.common.lastweek"),
-          value: () => {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            return [start, end];
-          },
+    this.shortcuts = [
+      {
+        text: this.$t("message.common.lastweek"),
+        value: () => {
+          const end = new Date();
+          const start = new Date();
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+          return [start, end];
         },
-        {
-          text: this.$t("message.common.lastmonths"),
-          value: () => {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            return [start, end];
-          },
+      },
+      {
+        text: this.$t("message.common.lastmonths"),
+        value: () => {
+          const end = new Date();
+          const start = new Date();
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+          return [start, end];
         },
-        {
-          text: this.$t("message.common.last3months"),
-          value: () => {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            return [start, end];
-          },
+      },
+      {
+        text: this.$t("message.common.last3months"),
+        value: () => {
+          const end = new Date();
+          const start = new Date();
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+          return [start, end];
         },
-      ];
+      },
+    ];
   },
   // watch: {
   //   locale(val) {

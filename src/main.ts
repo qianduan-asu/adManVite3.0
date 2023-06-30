@@ -13,6 +13,7 @@ import { getAuthRoutes } from './router/permission'
 import i18n from './locale'
 import './index.css'
 import VueGoogleMaps from '@fawmi/vue-google-maps'
+import Debounce from '@/directive/debounce'
 if (import.meta.env.MODE !== 'development') { // 非开发环境调用百度统计
   baidu()
 }
@@ -27,6 +28,7 @@ app.use(VueGoogleMaps, {
       // language: 'de',
   },
 })
+app.directive('Debounce',Debounce)
 app.use(ElementPlus, { size: store.state.app.elementSize })
 app.use(store)
 app.use(router)

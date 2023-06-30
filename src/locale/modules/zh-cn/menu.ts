@@ -25,7 +25,8 @@ export default {
         opearation_1_3: '设备信息',
         opearation_1_4: '分组信息',
         opearation_1_5: '授权管理',
-        opearation_1_6: '联防管理'
+        opearation_1_6: '联防管理',
+        addTerminal:'新增终端',
       },
       opearation_2: {
         name: '增值服务',
